@@ -49,7 +49,7 @@ class ValidatingArrayLoader implements LoaderInterface
         $this->config = $config;
 
         if ($this->strictName) {
-            $this->validateRegex('name', '[A-Za-z0-9][A-Za-z0-9_.-]*/[A-Za-z0-9][A-Za-z0-9_.-]*', true);
+            $this->validateRegex('name', '([A-Za-z0-9][A-Za-z0-9_.-]*/)?[A-Za-z0-9][A-Za-z0-9_.-]*', true);
         } else {
             $this->validateString('name', true);
         }
@@ -230,8 +230,7 @@ class ValidatingArrayLoader implements LoaderInterface
         // TODO validate package repositories' packages using this recursively
 
         $this->validateFlatArray('include-path');
-        $this->validateArray('transport-options');
-
+       	$this->validateArray('transport-options');
         // branch alias validation
         if (isset($this->config['extra']['branch-alias'])) {
             if (!is_array($this->config['extra']['branch-alias'])) {
