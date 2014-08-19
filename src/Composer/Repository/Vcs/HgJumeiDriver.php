@@ -133,7 +133,6 @@ class HgJumeiDriver extends VcsDriver
             return false;
         }
         $cmd = 'hg up -C '.$identifier.' && rm -rf .'.$filedir.' && mkdir .'.$filedir.' && mv * .'.$filedir.'/ &&  mv .'.$filedir.' '.$filedir.' && zip -r -9 '.$filedir.' * && mv '.$filename.' '.$this->getPhysicDlPath($identifier).' ; rm -rf *';
-        var_dump($cmd);
         return 0 === $this->process->execute($cmd, $output, $this->repoDir);
     }
 
