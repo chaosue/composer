@@ -42,6 +42,7 @@ class VcsRepository extends ArrayRepository
     public function __construct(array $repoConfig, IOInterface $io, Config $config, EventDispatcher $dispatcher = null, array $drivers = null)
     {
         $this->drivers = $drivers ?: array(
+            'hg-jumei'      => 'Composer\Repository\Vcs\HgJumeiDriver',
             'github'        => 'Composer\Repository\Vcs\GitHubDriver',
             'git-bitbucket' => 'Composer\Repository\Vcs\GitBitbucketDriver',
             'git'           => 'Composer\Repository\Vcs\GitDriver',
@@ -84,7 +85,6 @@ class VcsRepository extends ArrayRepository
             if ($driver::supports($this->io, $this->config, $this->url)) {
                 $driver = new $driver($this->repoConfig, $this->io, $this->config);
                 $driver->initialize();
-
                 return $driver;
             }
         }
@@ -181,7 +181,6 @@ class VcsRepository extends ArrayRepository
                 if ($verbose) {
                     $this->io->write('Importing tag '.$tag.' ('.$data['version_normalized'].')');
                 }
-
                 $this->addPackage($this->loader->load($this->preProcess($driver, $data, $identifier)));
             } catch (\Exception $e) {
                 if ($verbose) {
