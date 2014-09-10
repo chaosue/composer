@@ -188,6 +188,7 @@ class HgJumeiDriver extends VcsDriver
      */
     public function getBranches()
     {
+        return array();
         if (null === $this->branches) {
             $branches = array();
             $bookmarks = array();
